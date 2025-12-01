@@ -1,0 +1,1 @@
+# Image quality benchmark
