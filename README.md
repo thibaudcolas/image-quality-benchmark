@@ -1,6 +1,6 @@
 # Image quality benchmark
 
-Somewhat-reproducible benchmarking of image quality tradeoffs between different image formats and compression levels. Created for [AVIF vs. JPEG vs. WebP compression optimiztions](https://wagtail.org/blog/40-smaller-images-same-quality/) in Wagtail.
+Somewhat-reproducible benchmarking of image quality tradeoffs between different image formats and compression levels. Created for [AVIF vs. JPEG vs. WebP compression optimizations](https://wagtail.org/blog/40-smaller-images-same-quality/) in Wagtail.
 
 ## Goal
 
