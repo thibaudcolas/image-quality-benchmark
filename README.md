@@ -1,12 +1,45 @@
 # Image quality benchmark
 
-Somewhat-reproducible benchmarking of image quality tradeoffs between different image formats and compression levels. Created for [AVIF file sizes are consistently bigger than WEBP #13432](https://github.com/wagtail/wagtail/issues/13432) in Wagtail.
+Somewhat-reproducible benchmarking of image quality tradeoffs between different image formats and compression levels. Created for [AVIF vs. JPEG vs. WebP compression optimiztions](https://wagtail.org/blog/40-smaller-images-same-quality/) in Wagtail.
 
 ## Goal
 
-We want to redefine Wagtail’s default AVIF quality value based on "JPEG quality 85", to offer comparable perceptual image quality at an expected lower file size.
+We want to redefine Wagtail’s default AVIF and JPEG quality values to offer comparable perceptual image quality between formats, and generally better match common quality values in the industry.
 
 ## Results
+
+Here are [Wagtail’s recommended image quality settings](https://docs.wagtail.org/en/latest/topics/images.html#image-quality) across image formats, to achieve equivalent perceptual quality:
+
+| Intended use                | JPEG quality | AVIF quality | WebP quality |
+|-----------------------------|--------------|--------------|--------------|
+| Full-size photography       | 85           | 73           | 87           |
+| General-purpose web content | 76 (default) | 61 (default) | 80 (default) |
+| Large thumbnails (256x256)  | 65           | 54           | 70           |
+| Small thumbnails (64x64)    | 55           | 49           | 57           |
+
+### Summary of quality equivalencies
+
+For quick reference, here are the closest quality matches between formats at key quality levels:
+
+| JPEG Quality | WebP Quality | AVIF Quality |
+|--------------|--------------|--------------|
+| 40           | 40           | 43           |
+| 45           | 46           | 44           |
+| 50           | 53           | 46           |
+| 55           | 57           | 49           |
+| 60           | 63           | 51           |
+| 65           | 70           | 54           |
+| 70           | 76           | 56           |
+| 75           | 79           | 60           |
+| 80           | 83           | 65           |
+| 85           | 87           | 73           |
+| 90           | 91           | 83           |
+
+### Full data
+
+If you want to inspect the exact perceptual quality scores, check out [jpeg-webp-avif-scores.csv (1.2MB)](./jpeg-webp-avif-scores.csv). Or in Google Sheets: [JPEG and AVIF encoding quality review - Wagtail](https://docs.google.com/spreadsheets/d/19-umuXUUOAsdvtB0XXEtbOdlhQYAN3RzQ5IpByq_fec/edit).
+
+### Wagtail results
 
 For the 250 reference images in the [CID22 dataset](https://cloudinary.com/labs/cid22), Wagtail’s "libjpeg-turbo quality 85" encoding achieves a median ssimulacra2 score of 80.85. This is closest to libavif quality 73, at a median score of 80.80. Here are more numbers to summarize the distribution of quality scores:
 
@@ -16,7 +49,7 @@ For the 250 reference images in the [CID22 dataset](https://cloudinary.com/labs/
 | 25th percentile    | 78.48 (100%) | 78.92 (0.56%)  | 81.39 (3.71%) | 73.25 (-6.66%) |
 | 75th percentile    | 82.69 (100%) | 82.02 (-0.81%) | 84.45 (2.12%) | 77.3 (-6.53%)  |
 
-Here is the same distribution visualized with a box chart style candlestick chart:
+Here is the same distribution visualized with a box chart style candlestick chart, with other values that are more equivalent:
 
 ![Ssimulacra2 score distribution for AVIF quality settings vs. JPEG 85, WebP 80](ssimulacra2-scores-distribution-jpeg-85.png)
 
